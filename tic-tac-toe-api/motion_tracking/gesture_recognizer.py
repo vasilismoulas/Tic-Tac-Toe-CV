@@ -7,7 +7,7 @@ VisionRunningMode = mp.tasks.vision.RunningMode
 class Gesture_Recognizer:
      """Gesture Recognition object""" 
         
-     def __init__(self, model_file_path: str):
+     def __init__(self, model_file_path: str)-> None:
         self.model_file_path = model_file_path
         self.model_file = open(self.model_file_path, "rb")
         self.model_data = self.model_file.read()

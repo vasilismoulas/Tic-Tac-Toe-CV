@@ -4,13 +4,13 @@ import time
 import math as math
 from mediapipe.python.solutions.hands import Hands
 from mediapipe.python.solutions import drawing_utils
-import time
-
+from cv2.typing import MatLike # different modules use different custom made classes for image encapsulation (Surface for pygame or MatLike for opencv a.k.a cv2)
+from typing import Tuple, List, Any
 
 class Hand_Tracker:
     """Hand Tracking object"""
     
-    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
+    def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5)-> None:
         self.__mode__   =  mode
         self.__maxHands__   =  maxHands
         self.__detectionCon__   =   detectionCon
@@ -20,7 +20,7 @@ class Hand_Tracker:
         self.mpDraw= drawing_utils
         self.tipIds = [4, 8, 12, 16, 20]
 
-    def findFingers(self, frame, draw=True):
+    def findFingers(self, frame : MatLike, draw : bool=True)-> MatLike:
         imgRGB = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         self.results = self.hands.process(imgRGB)  
         if self.results.multi_hand_landmarks: 
@@ -30,7 +30,7 @@ class Hand_Tracker:
 
         return frame
 
-    def findPosition( self, frame, handNo=0, draw=True):
+    def findPosition( self, frame: MatLike, handNo: int=0, draw: bool=True)-> MatLike:
         xList =[]
         yList =[]
         bbox = []
@@ -58,7 +58,7 @@ class Hand_Tracker:
 
         return self.lmsList, bbox
     
-    def findFingerUp(self):
+    def findFingerUp(self)-> MatLike:
          fingers=[]
 
          if self.lmsList[self.tipIds[0]][1] > self.lmsList[self.tipIds[0]-1][1]:
@@ -74,7 +74,7 @@ class Hand_Tracker:
         
          return fingers
 
-    def findDistance(self, p1, p2, frame, draw= True, r=15, t=3):
+    def findDistance(self, p1, p2, frame, draw= True, r=15, t=3)-> Tuple[float, Any, List[int]]:
          
         x1 , y1 = self.lmsList[p1][1:]
         x2, y2 = self.lmsList[p2][1:]

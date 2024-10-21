@@ -5,7 +5,7 @@ __pycache__/
 
 
 # Rerun dir for static tyoecheking
-.rerun/
+rerun/
 
 # C extensions
 *.so

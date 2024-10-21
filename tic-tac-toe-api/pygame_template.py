@@ -3,6 +3,9 @@
 import pygame
 import cv2
 import numpy as np
+from motion_tracking.hand_tracker import Hand_Tracker
+from motion_tracking.gesture_recognizer import Gesture_Recognizer
+from cv2.typing import MatLike
 
 # pygame setup
 pygame.init()
@@ -18,7 +21,10 @@ cap = cv2.VideoCapture(0)
 
 # Create Window/Display
 width, height = 640, 480
-window = pygame.display.set_mode((width, height))
+window = pygame.display.set_mode(size=(width, height), flags=pygame.RESIZABLE)
+
+# Initialize Hand Detector
+detector = Hand_Tracker()
 
 # Main Loop
 start = True
@@ -30,14 +36,34 @@ while start:
         if event.type == pygame.QUIT:
             start = False
             pygame.quit()
+        elif event.type == pygame.VIDEORESIZE:
+            # Update the window size
+            width, height = event.size
+            window = pygame.display.set_mode(size=(width, height), flags=pygame.RESIZABLE)
 
     # video frame
     start, frame = cap.read() # start variable will be modified by cap.read() as well in case any error with the video capturing part happen so we can stop the loop.
 
+    # resize to match the updated window dimensions
+    frame = cv2.resize(frame, (width, height))
 
     # window.fill([0,0,0])
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    frame = np.rot90(frame)
+    # frame = np.rot90(frame)
+    # Using cv2.rotate() method
+    # Using cv2.ROTATE_90_CLOCKWISE rotate
+    # by 90 degrees clockwise
+    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+    
+    # hand detection
+    frame = detector.findFingers(frame)
+    lmsList = detector.findPosition(frame)       
+            
+    if len(lmsList)!=0:
+        pass
+        #print(lmsList[0])
+    
+    # convert frame -> pygame.Surface
     frame = pygame.surfarray.make_surface(frame)
     window.blit(frame, (0,0))
     
