@@ -7,10 +7,6 @@ import numpy as np
 # pygame setup
 pygame.init()
 
-# Create Window/Display
-width, height = 640, 480
-window = pygame.display.set_mode((width, height))
-
 pygame.display.set_caption("Tic-Tac-Toe")
 
 # Initialize Clock for FPS
@@ -19,6 +15,10 @@ clock = pygame.time.Clock()
 
 # video capture
 cap = cv2.VideoCapture(0)
+
+# Create Window/Display
+width, height = 640, 480
+window = pygame.display.set_mode((width, height))
 
 # Main Loop
 start = True
@@ -47,9 +47,9 @@ while start:
     window.blit(text, (0,0))
     
     # add shapes
-     # add shapes
+    # add shapes
     shape_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-    pygame.draw.polygon(shape_surface, color=(255, 0, 0), points=[(0, 0), (0, 30), (30, 30)])
+    pygame.draw.circle(surface=shape_surface, color=(255, 0, 0), center=(30,30), radius=15.0)
     window.blit(shape_surface, (0, 0))
     
     # flip() the display to put your work on window
