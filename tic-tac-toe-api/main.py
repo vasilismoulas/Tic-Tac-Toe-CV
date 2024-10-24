@@ -7,7 +7,7 @@ from mediapipe.python.solutions import drawing_utils
 import time
 from motion_tracking.hand_tracker import Hand_Tracker
 from motion_tracking.gesture_recognizer import Gesture_Recognizer
-
+import os
 
 def main():
         
@@ -15,7 +15,7 @@ def main():
         ptime = 0
         start = True
         cap = cv2.VideoCapture(0)
-        gesture_recognizer = Gesture_Recognizer("C:/Users/vasil/OneDrive/Υπολογιστής/tic-tac-toe/models/gesture_recognizer.task").recognizer
+        gesture_recognizer = Gesture_Recognizer('./Tic-Tac-Toe-CV/tic-tac-toe-api/models/gesture_recognizer.task').recognizer
         detector = Hand_Tracker()
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
