@@ -63,7 +63,9 @@ def main() -> None:
 
     if(not start):
        break 
+   
     # video frame
+    # Note: need to apply LUT to videocapture
     start, frame = cap.read() # start variable will be modified by cap.read() as well in case any error with the video capturing part happen so we can stop the loop.
 
     # resize to match the updated window dimensions
@@ -105,8 +107,19 @@ def main() -> None:
     ratio = (prev_width/width, prev_height/height)
     resized_table = pygame.transform.scale(table, (table_width + table_width*ratio[0], table_height+ table_height*ratio[1]))
     
+    # ** Needs to be fixed **
+    # if(prev_width < width and prev_height < height):
+    #   ratio = (prev_width/width, prev_height/height)
+    #   resized_table = pygame.transform.scale(table, (table_width + table_width*ratio[0], table_height+ table_height*ratio[1]))
+    #   table_width, table_height = table_width + table_width*ratio[0], table_height+ table_height*ratio[1]
+    
+    # elif(prev_width > width and prev_height > height):
+    #   ratio = (width/prev_width, height/prev_height)
+    #   resized_table = pygame.transform.scale(table, (table_width - table_width*ratio[0], table_height - table_height*ratio[1]))
+    #   table_width, table_height = table_width - table_width*ratio[0], table_height - table_height*ratio[1]
+    
     # add images 
-    window.blit(resized_table, (width/2 - table_width/2, height/2 - table_height/2))
+    window.blit(resized_table, (width/2 - resized_table.get_width()/2, height/2 - resized_table.get_height()/2))
     
      # Calculate and display FPS
     fps = clock.get_fps()
