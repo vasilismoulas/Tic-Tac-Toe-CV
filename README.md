@@ -1,6 +1,3 @@
-# Upper-Extremity_Mobility_Rehabiliation
- This repository hosts a collection of projects focused on digital hand rehabilitation leveraging the Mediapipe library. Mediapipe provides a versatile framework for real-time multimedia processing, making it ideal for developing interactive applications aimed at improving hand mobility and dexterity.
-
 Table of Contents
 ---
 
@@ -9,20 +6,10 @@ Table of Contents
 2. [Architecture](#architecture)
 
 3. [File overall operation description](#file-overall-operation-description)
-   * [Program.cs](#programcs)
-     * [Main function](#Main-funciton)
+4. 
+5. Installation instructions 
 
-   * [CodeContainerCompositeConcrete.cs](#codecontainercompositeconcrete.cs)
-    
-   * [CodeContainerComposite.cs](#codecontainercomposite.cs)
-     
-
-   * [C2ASMTranslation.cs]()
-     * [C2ASMTranslation class]()
-
-4. Installation instructions 
-
-5.
+6.
 
 5. [Glossary]()
 
