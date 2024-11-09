@@ -4,21 +4,14 @@ import pygame
 import cv2
 import numpy as np
 import memory_profiler
-from motion_tracking.hand_tracker import Hand_Tracker
-from motion_tracking.gesture_recognizer import Gesture_Recognizer
+from hand_tracker import Hand_Tracker
+from gesture_recognizer import Gesture_Recognizer
 from cv2.typing import MatLike
 
 
-# Load images
-table = pygame.image.load("./Tic-Tac-Toe-CV/tic-tac-toe-api/resources/table.png")
-table.set_alpha(168)
-table_width = table.get_width()
-table_height = table.get_height()
 
 
-def main() -> None:
-    
- global table_width, table_height   
+def ui() -> None:
     
  # pygame setup
  pygame.init()
@@ -43,6 +36,30 @@ def main() -> None:
  
  # center
  #center = 
+ 
+ # Load images
+ # tic-tac-toe table
+ table = pygame.image.load("./Tic-Tac-Toe-CV/tic-tac-toe-api/src/frontend/ui/assets/table.png").convert_alpha()
+ table.set_alpha(235)
+ table_width = table.get_width()
+ table_height = table.get_height()
+ # circle
+ circle = pygame.image.load("./Tic-Tac-Toe-CV/tic-tac-toe-api/src/frontend/ui/assets/circle.png").convert_alpha()
+ circle.set_alpha(235)
+ circle_width = circle.get_width()
+ circle_height = circle.get_height()
+ # circle = pygame.transform.scale(circle, (circle_width/2, circle_height/2))
+ # xmark
+ xmark = pygame.image.load("./Tic-Tac-Toe-CV/tic-tac-toe-api/src/frontend/ui/assets/xmark.png").convert_alpha()
+ xmark.set_alpha(168)
+ xmark_rect = xmark.get_rect()
+ xmark_width = xmark.get_width()
+ xmark_height = xmark.get_height()
+ # xmark = pygame.transform.scale(xmark, (xmark_width/2, xmark_height/2))
+ 
+ # Initialize rotation angles
+ circle_angle = 0
+ xmark_angle = 0
  
  # Main Loop
  start = True   
@@ -88,7 +105,7 @@ def main() -> None:
         #print(lmsList[0])
     
     # convert frame -> pygame.Surface
-    frame = pygame.surfarray.make_surface(frame)
+    frame = pygame.surfarray.make_surface(frame).convert()
     window.blit(frame, (0,0))
     
     # add text
@@ -118,10 +135,35 @@ def main() -> None:
     #   resized_table = pygame.transform.scale(table, (table_width - table_width*ratio[0], table_height - table_height*ratio[1]))
     #   table_width, table_height = table_width - table_width*ratio[0], table_height - table_height*ratio[1]
     
+    # Update rotation angles
+    #circle_angle = (circle_angle + 10) % 360
+    #xmark_angle = (xmark_angle + 10) % 360
+    
+    # Create rotated copies from original images
+    # xmark = pygame.transform.rotate(xmark, xmark_angle)
+    # circle = pygame.transform.rotate(circle, circle_angle)
+    
     # add images 
+    # table
     window.blit(resized_table, (width/2 - resized_table.get_width()/2, height/2 - resized_table.get_height()/2))
     
-     # Calculate and display FPS
+    # Shapes 
+    # xmark
+    # xmark transformation
+    # pygame.draw.rect(window, (0,255,0), xmark_rect)
+    # window.blit(xmark, (xmark_rect.x,xmark_rect.y)) 
+    
+    # xmark_rect.x += 5 % window.get_size()[0]
+    window.blit(xmark, (width/2 - xmark.get_width()/2, height/2 - xmark.get_height()/2))
+    # xmark = pygame.transform.rotate(xmark, 30)
+    
+    # circle
+    window.blit(circle, (width/2 - circle.get_width()/2, height/2 - circle.get_height()/2))
+    # circle = pygame.transform.rotate(circle, 90)
+    # circle's rectangle
+    # pygame.draw.rect(window, (255,0,0), circle.get_rect())
+    
+    # Calculate and display FPS
     fps = clock.get_fps()
     fps_text = font.render(f"FPS: {fps:.2f}", True, (0, 255, 0))
     window.blit(fps_text, (0, 0))
@@ -139,4 +181,4 @@ def main() -> None:
     
 
 if __name__ == "__main__":  
-    main()
+    ui()

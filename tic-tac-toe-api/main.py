@@ -29,12 +29,12 @@ def main():
             # Convert the frame received from OpenCV to a MediaPipe’s Image object.
             # (Gesture Recognition OFCOURSE and it must be done before the landmark drawing for lower delay)
             
-            #mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
-            #recognition_result = gesture_recognizer.recognize(mp_image)
-            #print(recognition_result) 
+            mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=frame)
+            recognition_result = gesture_recognizer.recognize(mp_image)
+            print(recognition_result) 
            
             # small pause to notice the gesture recognition reliability
-            #time.sleep(5.0)
+            # time.sleep(5.0)
            
             frame = cv2.flip(frame, 1) # flipped frame horizontally
             frame = detector.findFingers(frame)

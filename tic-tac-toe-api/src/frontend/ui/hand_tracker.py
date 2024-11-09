@@ -30,10 +30,10 @@ class Hand_Tracker:
 
         return frame
 
-    def findPosition( self, frame: MatLike, handNo: int=0, draw: bool=True)-> MatLike:
+    def findPosition( self, frame: MatLike, handNo: int=0, draw: bool=True)-> Tuple[List[List[int]], List[int]]:
         xList =[]
-        yList =[]
-        bbox = []
+        yList =[] 
+        bbox = [] # contains box's 4 vertexes
         self.lmsList=[]
         if self.results.multi_hand_landmarks:
             myHand = self.results.multi_hand_landmarks[handNo]
@@ -47,18 +47,18 @@ class Hand_Tracker:
                 if draw:
                     cv2.circle(frame,  (cx, cy), 5, (255, 0, 255), cv2.FILLED)
 
-            xmin, xmax = min(xList), max(xList)
-            ymin, ymax = min(yList), max(yList)
-            bbox = xmin, ymin, xmax, ymax
-            print( "Hands Keypoint")
-            print(bbox)
+            xmin, xmax = (min(xList), max(xList))
+            ymin, ymax = (min(yList), max(yList))
+            bbox = (xmin, ymin, xmax, ymax)
+            #print("Hands Keypoint")
+            #print(bbox)
             if draw:
                 cv2.rectangle(frame, (xmin - 20, ymin - 20),(xmax + 20, ymax + 20),
                                (0, 255 , 0) , 2)
 
         return self.lmsList, bbox
     
-    def findFingerUp(self)-> MatLike:
+    def findFingerUp(self)-> List[int]:
          fingers=[]
 
          if self.lmsList[self.tipIds[0]][1] > self.lmsList[self.tipIds[0]-1][1]:
