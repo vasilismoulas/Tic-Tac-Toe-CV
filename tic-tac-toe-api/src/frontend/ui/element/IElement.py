@@ -6,11 +6,11 @@ class IElement(ABC):
     def get_rect(self):
         pass
     
-    # @classmethod
-    # def __subclasshook__(cls, C):
-    #     if cls is IElement:
-    #         if any("__iter__" in B.__dict__ for B in C.__mro__):
-    #             return True
-    #     return NotImplemented
+    @classmethod
+    def __subclasshook__(cls, C):
+         if cls is IElement:
+             if any("__iter__" in B.__dict__ for B in C.__mro__):
+                 return True
+         return NotImplemented
     
     

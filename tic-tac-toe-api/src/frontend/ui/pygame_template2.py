@@ -136,12 +136,7 @@ def ui() -> None:
 
 if __name__ == "__main__":  
     
-    inter = IElement()
-
-
-    
-    print(type(inter))
-
-
-    # ui()
+    #inter = IElement()
+    #print(type(inter))
+    ui()
     
