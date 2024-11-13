@@ -4,8 +4,6 @@ from pygame.surface import Surface
 from enum import Enum
 
 
-
-
 class symbolType(Enum):
     
     ST_CROSS_SYMBOL = 1
