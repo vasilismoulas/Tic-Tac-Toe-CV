@@ -1,0 +1,8 @@
+numpy
+opencv-python
+pygame
+mediapipe
+
+#i need to search up what are these exactly
+nose
+sphinx

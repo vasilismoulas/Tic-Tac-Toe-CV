@@ -94,7 +94,7 @@ class Tsymbol(IElement):
      """
      __serial: int = 0
      
-     def __init__(self, surface : Surface, name : str, x : int , y : int, rect : Rect, img_path : str ) -> None:
+     def __init__(self, surface: Surface, name: str = None, x: int = None , y: int = None, rect: Rect = None, img_path: str = None) -> None:
         self.__surface = surface
         self.__name = name
         self.__x = x
@@ -174,7 +174,3 @@ class Tsymbol(IElement):
 
 
 
-
-
-
-symbol = Tsymbol()
