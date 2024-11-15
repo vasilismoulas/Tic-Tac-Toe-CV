@@ -32,7 +32,7 @@ def ui() -> None:
 
  #gesture_recognizer = Gesture_Recognizer('./tic_tac_toe_api/resources/models/gesture_recognizer.task').recognizer
 
- # Load symbols
+ # Load images
  table = pygame.image.load("./tic_tac_toe_api/src/frontend/ui/assets/table.png").convert_alpha()
  circle = pygame.image.load("./tic_tac_toe_api/src/frontend/ui/assets/circle.png").convert_alpha()
  xmark = pygame.image.load("./tic_tac_toe_api/src/frontend/ui/assets/xmark.png").convert_alpha()

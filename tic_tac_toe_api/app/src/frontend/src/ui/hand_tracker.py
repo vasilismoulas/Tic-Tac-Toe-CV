@@ -45,7 +45,7 @@ class Hand_Tracker:
                 yList.append(cy)
                 self.lmsList.append([id, cx, cy])
                 if draw:
-                    cv2.circle(frame,  (cx, cy), 5, (255, 0, 255), cv2.FILLED)
+                    cv2.circle(frame,  (cx, cy), 5, (0, 150, 255), cv2.FILLED)
 
             xmin, xmax = (min(xList), max(xList))
             ymin, ymax = (min(yList), max(yList))
@@ -54,7 +54,7 @@ class Hand_Tracker:
             #print(bbox)
             if draw:
                 cv2.rectangle(frame, (xmin - 20, ymin - 20),(xmax + 20, ymax + 20),
-                               (0, 255 , 0) , 2)
+                               (0, 150, 255) , 2)
 
         return self.lmsList, bbox
     

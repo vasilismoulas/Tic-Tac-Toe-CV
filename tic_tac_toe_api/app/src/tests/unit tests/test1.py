@@ -1,11 +1,7 @@
 import unittest
 import sys
 import os
-from frontend.ui.symbol_table import Symbol_Table
-
-# Add the parent directory to the Python path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
+from ...frontend.ui import Symbol_Table
 
 
 class TestSymbol_Table(unittest.TestCase):

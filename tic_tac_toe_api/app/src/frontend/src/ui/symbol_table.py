@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 from element.Element import Tsymbol
+from typing import Iterator
+
 
 
 class ISymbol_Table(ABC):
@@ -12,7 +14,7 @@ class ISymbol_Table(ABC):
        pass
 
 
-class SingletonMeta(type):
+class SingletonMeta(type, ISymbol_Table):
     """
     Metaclass for Singleton class
     """
@@ -30,7 +32,7 @@ class SingletonMeta(type):
         return cls._instances[cls]
 
 
-class Symbol_Table(ISymbol_Table, metaclass=SingletonMeta):
+class Symbol_Table(metaclass=SingletonMeta):
     """
     Symbol Table is a Singleton class that contains all the symbols(Tsymbol class) of Tic-Tac-Toe game
     """
@@ -53,10 +55,10 @@ class Symbol_Table(ISymbol_Table, metaclass=SingletonMeta):
             raise ValueError()
         self.__hash_map = value
 
-    def __iter__(self):
-        pass
+    def __iter__(self) -> Iterator:
+        return iter(self.__hash_map)
 
     def __str__(self) -> str:
-        return f" {0} "
-    
-    
+        return self.__hash_map.__str__()
+
+

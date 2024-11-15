@@ -170,3 +170,11 @@ class Tsymbol(IElement):
      def __str__(self):
         return f"Symbol's name {self.__name}"
 
+
+
+
+
+
+
+
+symbol = Tsymbol()
