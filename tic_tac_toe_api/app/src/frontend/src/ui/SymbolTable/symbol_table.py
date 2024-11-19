@@ -12,6 +12,10 @@ class ISymbol_Table(ABC):
     @abstractmethod
     def hash_map(self, value: tuple[str, Tsymbol]) -> None:
        pass
+    
+    @abstractmethod
+    def lookup(symbol_type: str)-> Tsymbol:
+       pass
 
 
 class SingletonMeta(type, ISymbol_Table):
@@ -37,8 +41,8 @@ class Symbol_Table(metaclass=SingletonMeta):
     Symbol Table is a Singleton class that contains all the symbols(Tsymbol class) of Tic-Tac-Toe game
     """
 
-    def __init__(self) -> None:
-        self.__hash_map = {}  
+    def __init__(self, hash_map: dict) -> None:
+        self.__hash_map = hash_map 
     
     @classmethod
     def _get_instance(cls):
@@ -54,6 +58,11 @@ class Symbol_Table(metaclass=SingletonMeta):
         if((type(value[0])==str) and (type(value[1])==Tsymbol)):
             raise ValueError()
         self.__hash_map = value
+        
+    def lookup(self, symbol_type: str)-> Tsymbol:
+        # if(self.__hash_map[symbol_type]):
+        #    pass
+        return self.__hash_map[symbol_type]
 
     def __iter__(self) -> Iterator:
         return iter(self.__hash_map)

@@ -10,7 +10,7 @@ class symbolType(Enum):
     ST_CIRCLE_SYMBOL = 2
 
 
-class IElement(ABC):
+class ITsymbol(ABC):
     """Interface that is a blueprint for Tic-Tac-Toe's interactive symbols
         (e.g.: cross and circle)
     """
@@ -79,29 +79,43 @@ class IElement(ABC):
     @abstractmethod
     def serial(self) -> int:
         pass
+    
+    @property
+    @abstractmethod
+    def symbol_name(self) -> str:
+       pass
+    
+    @property
+    @abstractmethod
+    def symbol_type(self) -> str:
+      pass
+   
+    @abstractmethod
+    def generate_nodename(self) -> str:
+        pass
  
     @classmethod
     def __subclasshook__(cls, C):
-         if cls is IElement:
+         if cls is ITsymbol:
              if any("__iter__" in B.__dict__ for B in C.__mro__):
                  return True
          return NotImplemented
 
 
-class Tsymbol(IElement):
+class Tsymbol(ITsymbol):
      """Class/Data Structure that represents Tic-Tac-Toe's interactive symbols
         (e.g.: cross and circle)
      """
-     __serial: int = 0
+     __serial: int = 1
      
-     def __init__(self, surface: Surface, name: str = None, x: int = None , y: int = None, rect: Rect = None, img_path: str = None) -> None:
+     def __init__(self, surface: Surface, symbol_name: str) -> None:
         self.__surface = surface
-        self.__name = name
-        self.__x = x
-        self.__y = y
-        self.__rect = rect
-        self.__img_path = img_path
-        Tsymbol.__symbol_count += 1
+        self.__rect = surface.get_rect()
+        self.__x = None
+        self.__y = None
+        self.__symbol_name = symbol_name
+        self.__symbol_type = self.generate_nodename()
+        Tsymbol.__serial += 1
  
      @property
      def surface(self) -> Surface:
@@ -161,16 +175,23 @@ class Tsymbol(IElement):
      def img_path(self, value: str) -> None:
         if not isinstance(value, str):
             raise ValueError()
-        self.__img_path = value  
+        self.__img_path = value
+        
+     @property
+     def symbol_name(self) -> str:
+        return self.__symbol_name
+        
+     @property
+     def symbol_type(self) -> str:
+        return self.__symbol_type
         
      @property
      def serial(self) -> int:
         return Tsymbol.__serial
+    
+     def generate_nodename(self) -> str:
+        return f"{self.__symbol_name}_{Tsymbol.__serial}"
 
      def __str__(self):
         return f"Symbol's name {self.__name}"
-
-
-
-
 
