@@ -102,13 +102,22 @@ def ui() -> None:
             
     if len(lmsList)!=0:
        lmcoordinates = lmsList[8][1:3] 
-       print('landmark 8: ', lmsList[8], 'x, y: ', lmcoordinates)
+       print('landmark 8: ', lmsList[8], 'x, y: ', lmcoordinates) # this is going to be replaced by the gesture recognition obj.
        
        
        # i need to re-coordinate the cross's rect cause it's supposedly in the upper left corner of the window (0,0)
-       if cross.surface.get_rect().collidepoint(lmcoordinates):
-           print("cross's rectangle position: ", cross.surface.get_rect())
-           print("8th landmark collided with crosss's rectangle")
+       # Check collisions
+       cross_collided = cross.surface.get_rect().collidepoint(lmcoordinates)
+       circle_collided = circle.surface.get_rect().collidepoint(lmcoordinates)
+
+       if cross_collided or circle_collided:
+          print("cross's rectangle position: ", cross.surface.get_rect())
+            
+          if cross_collided:
+             print("8th landmark collided with cross's rectangle")
+            
+          if circle_collided:
+             print("8th landmark collided with circle's rectangle")
        
        #time.sleep(5.0)
     
